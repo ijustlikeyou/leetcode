@@ -1167,7 +1167,108 @@ public class LeetCode1 {
     public static void main(String[] args) {
        // outListNode(createListNode(123l));
        //outListNode(addTwoNumbers(createListNode(0),createListNode(567)));
-        System.out.println(maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
+
+        System.out.println(backspaceCompare("a#c","x"));
+    }
+
+
+    /**
+     * 844. 比较含退格的字符串 难度简单
+     * 给定 S 和 T 两个字符串，当它们分别被输入到空白的文本编辑器后，判断二者是否相等，并返回结果。 # 代表退格字符。
+     *
+     * 注意：如果对空文本输入退格字符，文本继续为空。
+     * 示例 1：
+     *
+     * 输入：S = "ab#c", T = "ad#c"
+     * 输出：true
+     * 解释：S 和 T 都会变成 “ac”。
+     * 示例 2：
+     *
+     * 输入：S = "ab##", T = "c#d#"
+     * 输出：true
+     * 解释：S 和 T 都会变成 “”。
+     * 示例 3：
+     *
+     * 输入：S = "a##c", T = "#a#c"
+     * 输出：true
+     * 解释：S 和 T 都会变成 “c”。
+     * 示例 4：
+     *
+     * 输入：S = "a#c", T = "b"
+     * 输出：false
+     * 解释：S 会变成 “c”，但 T 仍然是 “b”。
+     *
+     *
+     * 提示：
+     *
+     * 1 <= S.length <= 200
+     * 1 <= T.length <= 200
+     * S 和 T 只含有小写字母以及字符 '#'。
+     *
+     * @param S
+     * @param T
+     * @return
+     */
+    public static boolean backspaceCompare(String S, String T) {
+        return getString(S).equals(getString(T));
+    }
+
+    public static String getString(String lty){
+        StringBuilder sbd=new StringBuilder();
+        for(int i=lty.length()-1,count=0;i>=0;i--){
+            char a=lty.charAt(i);
+            if(a=='#'){
+                count++;
+                continue;
+            }
+            if (count>0){
+                count--;
+                continue;
+            }
+            sbd.append(a);
+        }
+       return sbd.toString();
+    }
+
+    /**
+     * 15. 三数之和 难度中等
+     * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
+     *
+     * 注意：答案中不可以包含重复的三元组。
+     *
+     *
+     *
+     * 示例：
+     *
+     * 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+     *
+     * 满足要求的三元组集合为：
+     * [
+     *   [-1, 0, 1],
+     *   [-1, -1, 2]
+     * ]
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set lty = new HashSet();
+            for(int i=0;i<nums.length-2;i++){
+                int iInt=nums[i];
+                for(int a=i+1;a<nums.length-1;a++){
+                    int aInt=nums[a];
+                    for(int b=a+1;b<nums.length;b++){
+                        if(iInt+aInt+nums[b]==0){
+                            List<Integer> list=new ArrayList<>();
+                            list.add(iInt);
+                            list.add(aInt);
+                            list.add(nums[b]);
+                            Collections.sort(list);
+                            lty.add(list);
+                        }
+                    }
+                }
+            }
+        return new ArrayList<>(lty);
     }
 
 
